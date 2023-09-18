@@ -3,6 +3,7 @@ package com.example.muzimuzi.controller;
 import com.example.muzimuzi.domain.Article;
 import com.example.muzimuzi.dto.AddArticleRequest;
 import com.example.muzimuzi.dto.ArticleResponse;
+import com.example.muzimuzi.dto.UpdateArticleRequest;
 import com.example.muzimuzi.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -53,5 +54,14 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id,
+                                                 @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
     }
 }
