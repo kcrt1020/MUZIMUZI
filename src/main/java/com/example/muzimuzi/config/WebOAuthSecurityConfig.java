@@ -3,10 +3,10 @@ package com.example.muzimuzi.config;
 import com.example.muzimuzi.config.jwt.TokenProvider;
 import com.example.muzimuzi.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.example.muzimuzi.config.oauth.OAuth2SuccessHandler;
+import com.example.muzimuzi.config.oauth.OAuth2UserCustomService;
 import com.example.muzimuzi.repository.RefreshTokenRepository;
 import com.example.muzimuzi.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -15,10 +15,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 
 @RequiredArgsConstructor
 @Configuration
@@ -31,7 +32,7 @@ public class WebOAuthSecurityConfig {
     @Bean
     public WebSecurityCustomizer configure() {  // 스프링 시큐리티 기능 비활성화
         return (web) -> web.ignoring()
-                .requestMatchers(PathRequest.toH2Console())
+                .requestMatchers(toH2Console())
                 .requestMatchers("/img/**", "/css/**", "/js/**");
     }
 

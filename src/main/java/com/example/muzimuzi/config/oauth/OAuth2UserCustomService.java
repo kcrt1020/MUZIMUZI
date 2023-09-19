@@ -1,4 +1,4 @@
-package com.example.muzimuzi.config;
+package com.example.muzimuzi.config.oauth;
 
 import com.example.muzimuzi.domain.User;
 import com.example.muzimuzi.repository.UserRepository;
