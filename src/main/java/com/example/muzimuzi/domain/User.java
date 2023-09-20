@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name="users")
+@Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -23,13 +23,12 @@ public class User implements UserDetails {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name="email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password")
     private String password;
 
-    // 사용자 이름
     @Column(name = "nickname", unique = true)
     private String nickname;
 
@@ -40,7 +39,15 @@ public class User implements UserDetails {
         this.nickname = nickname;
     }
 
-    @Override   // 권한 반환
+    public User update(String nickname) {
+        this.nickname = nickname;
+
+        return this;
+    }
+
+
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("user"));
     }
@@ -73,12 +80,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    // 사용자 이름 변경
-    public User update(String nickname) {
-        this.nickname = nickname;
-
-        return this;
     }
 }

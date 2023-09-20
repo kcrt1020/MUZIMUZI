@@ -31,7 +31,7 @@ public class WebOAuthSecurityConfig {
     private final UserService userService;
 
     @Bean
-    public WebSecurityCustomizer configure() {  // 스프링 시큐리티 기능 비활성화
+    public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
                 .requestMatchers(toH2Console())
                 .requestMatchers("/img/**", "/css/**", "/js/**");
@@ -43,10 +43,10 @@ public class WebOAuthSecurityConfig {
                 .httpBasic().disable()
                 .formLogin().disable()
                 .logout().disable();
+
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        // 헤더를 확인할 커스텀 필터 추가
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 
@@ -58,23 +58,24 @@ public class WebOAuthSecurityConfig {
         http.oauth2Login()
                 .loginPage("/login")
                 .authorizationEndpoint()
-                // Authorization 요청과 관련된 상태 저장
                 .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 .and()
-                .successHandler(oAuth2SuccessHandler()) // 인증 성공 시 실행할 핸들러
+                .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint()
                 .userService(oAuth2UserCustomService);
 
         http.logout()
                 .logoutSuccessUrl("/login");
 
-        // /api로 시작하는 url인 경우 401 상태 코드를 반환하도록 예외 처리
+
         http.exceptionHandling()
-                .defaultAuthenticationEntryPointFor(new
-                                HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+                .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
                         new AntPathRequestMatcher("/api/**"));
+
+
         return http.build();
     }
+
 
     @Bean
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
@@ -99,5 +100,4 @@ public class WebOAuthSecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

@@ -23,8 +23,7 @@ public class ExampleController {
         model.addAttribute("person", examplePerson);
         model.addAttribute("today", LocalDate.now());
 
-        return "example";   // example.html 뷰 조회
-        
+        return "example";
     }
 
     @Setter
@@ -34,6 +33,6 @@ public class ExampleController {
         private String name;
         private int age;
         private List<String> hobbies;
-
     }
 }
+
