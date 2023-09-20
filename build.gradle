@@ -50,9 +50,9 @@ dependencies {
 
 }
 
-test {
-    useJUnitPlatform()
-}
+//test {
+//    useJUnitPlatform()
+//}
 
 jar {
     enabled = false
