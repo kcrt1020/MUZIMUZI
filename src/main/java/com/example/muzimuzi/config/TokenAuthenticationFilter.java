@@ -15,7 +15,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
-
     private final static String HEADER_AUTHORIZATION = "Authorization";
     private final static String TOKEN_PREFIX = "Bearer ";
 
@@ -24,16 +23,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
+
         // 요청 헤더의 Authorization 키의 값 조회
         String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
         // 가져온 값에서 접두사 제거
         String token = getAccessToken(authorizationHeader);
         // 가져온 토큰이 유효한지 확인하고, 유효한 때는 인증 정보 설정
-        if(tokenProvider.validToken(token)) {
+        if (tokenProvider.validToken(token)) {
             Authentication authentication = tokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
         filterChain.doFilter(request, response);
     }
 
@@ -43,5 +42,4 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
-
 }

@@ -18,12 +18,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 @RequiredArgsConstructor
 @Configuration
 public class WebOAuthSecurityConfig {
+
     private final OAuth2UserCustomService oAuth2UserCustomService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -38,7 +39,6 @@ public class WebOAuthSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // 토큰 방식으로 인증을 하기 때문에 기존에 사용하던 폼로그인, 세션 비활성화
         http.csrf().disable()
                 .httpBasic().disable()
                 .formLogin().disable()
@@ -49,13 +49,14 @@ public class WebOAuthSecurityConfig {
         // 헤더를 확인할 커스텀 필터 추가
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        // 토큰 재발급 URL은 인증 없이 접근 가능하도록 설정. 나머지 API URL은 인증 필요
+
         http.authorizeRequests()
                 .requestMatchers("/api/token").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
+                .loginPage("/login")
                 .authorizationEndpoint()
                 // Authorization 요청과 관련된 상태 저장
                 .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
@@ -69,7 +70,8 @@ public class WebOAuthSecurityConfig {
 
         // /api로 시작하는 url인 경우 401 상태 코드를 반환하도록 예외 처리
         http.exceptionHandling()
-                .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+                .defaultAuthenticationEntryPointFor(new
+                                HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
                         new AntPathRequestMatcher("/api/**"));
         return http.build();
     }
@@ -97,4 +99,5 @@ public class WebOAuthSecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

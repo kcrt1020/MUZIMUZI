@@ -1,6 +1,6 @@
-//package com.example.muzimuzi.config;
+package com.example.muzimuzi.config;//package com.example.springbootdeveloper.config;
 //
-//import com.example.muzimuzi.service.UserDetailService;
+//import com.example.springbootdeveloper.service.UserDetailService;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -19,6 +19,7 @@
 //
 //    private final UserDetailService userService;
 //
+//    // 스프링 시큐리티 기능 비활성화
 //    @Bean
 //    public WebSecurityCustomizer configure() {
 //        return (web) -> web.ignoring()
@@ -26,10 +27,11 @@
 //                .requestMatchers("/static/**");
 //    }
 //
+//    // 특정 HTTP 요청에 대한 웹 기반 보안 구성
 //    @Bean
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //        return http
-//                .authorizeRequests()
+//                .authorizeHttpRequests()    // 인증, 인가 설정
 //                .requestMatchers("/login", "/signup", "/user").permitAll()
 //                .anyRequest().authenticated()
 //                .and()
@@ -41,12 +43,15 @@
 //                .logoutSuccessUrl("/login")
 //                .invalidateHttpSession(true)
 //                .and()
-//                .csrf().disable()
+//                .csrf().disable()   // csrf 비활성화
 //                .build();
 //    }
 //
+//    // 인증 관리자 관련 설정
 //    @Bean
-//    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailService userDetailService) throws Exception {
+//    public AuthenticationManager authenticationManager(HttpSecurity http,
+//                                                       BCryptPasswordEncoder bCryptPasswordEncoder,
+//                                                       UserDetailService userDetailService) throws Exception {
 //        return http.getSharedObject(AuthenticationManagerBuilder.class)
 //                .userDetailsService(userService)
 //                .passwordEncoder(bCryptPasswordEncoder)
@@ -54,6 +59,7 @@
 //                .build();
 //    }
 //
+//    // 패스워드 인코더로 사용할 빈 등록
 //    @Bean
 //    public BCryptPasswordEncoder bCryptPasswordEncoder() {
 //        return new BCryptPasswordEncoder();

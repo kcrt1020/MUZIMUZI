@@ -14,6 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class OAuth2UserCustomService extends DefaultOAuth2UserService {
+
     private final UserRepository userRepository;
 
     @Override
@@ -28,7 +29,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     private User saveOrUpdate(OAuth2User oAuth2User) {
         Map<String, Object> attributes = oAuth2User.getAttributes();
         String email = (String) attributes.get("email");
-        String name = (String) attributes.get("name");
+        String name = (String)attributes.get("name");
         User user = userRepository.findByEmail(email)
                 .map(entity -> entity.update(name))
                 .orElse(User.builder()
