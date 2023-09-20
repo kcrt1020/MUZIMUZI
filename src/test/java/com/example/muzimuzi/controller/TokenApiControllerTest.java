@@ -1,13 +1,13 @@
 package com.example.muzimuzi.controller;
 
+import com.example.muzimuzi.jwt.JwtFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.muzimuzi.config.jwt.JwtProperties;
 import com.example.muzimuzi.domain.RefreshToken;
 import com.example.muzimuzi.domain.User;
 import com.example.muzimuzi.dto.CreateAccessTokenRequest;
-import com.example.muzimuzi.jwt.JwtFactory;
 import com.example.muzimuzi.repository.RefreshTokenRepository;
 import com.example.muzimuzi.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,23 +29,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TokenApiControllerTest {
+class TokenApiControllerTest {
+
     @Autowired
     protected MockMvc mockMvc;
+
     @Autowired
     protected ObjectMapper objectMapper;
+
     @Autowired
     private WebApplicationContext context;
+
     @Autowired
     JwtProperties jwtProperties;
+
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     RefreshTokenRepository refreshTokenRepository;
 
     @BeforeEach
     public void mockMvcSetUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
+                .build();
         userRepository.deleteAll();
     }
 
@@ -60,16 +67,15 @@ public class TokenApiControllerTest {
                 .password("test")
                 .build());
 
-        String refreshToken = JwtFactory.builder()
+        String refreshToekn = JwtFactory.builder()
                 .claims(Map.of("id", testUser.getId()))
                 .build()
                 .createToken(jwtProperties);
 
-        refreshTokenRepository.save(new RefreshToken(testUser.getId(), refreshToken));
+        refreshTokenRepository.save(new RefreshToken(testUser.getId(), refreshToekn));
 
         CreateAccessTokenRequest request = new CreateAccessTokenRequest();
-        request.setRefreshToken(refreshToken);
-
+        request.setRefreshToken(refreshToekn);
         final String requestBody = objectMapper.writeValueAsString(request);
 
         // when
@@ -82,4 +88,5 @@ public class TokenApiControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.accessToken").isNotEmpty());
     }
+
 }

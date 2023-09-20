@@ -1,12 +1,14 @@
 package com.example.muzimuzi.controller;
 
 import com.example.muzimuzi.domain.Article;
+import com.example.muzimuzi.dto.UpdateArticleRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.muzimuzi.domain.Article;
 import com.example.muzimuzi.domain.User;
 import com.example.muzimuzi.dto.AddArticleRequest;
 import com.example.muzimuzi.dto.UpdateArticleRequest;
 import com.example.muzimuzi.repository.BlogRepository;
 import com.example.muzimuzi.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,20 +28,20 @@ import org.springframework.web.context.WebApplicationContext;
 import java.security.Principal;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest // 테스트용 애플리케이션 컨텍스트
-@AutoConfigureMockMvc   // MockMvc 생성 및 자동 구성
+@SpringBootTest
+@AutoConfigureMockMvc
 class BlogApiControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
 
     @Autowired
-    protected ObjectMapper objectMapper;    // 직렬화, 역직렬화를 위한 클래스
+    protected ObjectMapper objectMapper;
 
     @Autowired
     private WebApplicationContext context;
@@ -73,24 +75,21 @@ class BlogApiControllerTest {
     }
 
 
-    @DisplayName("addArticle: 블로그 글 추가에 성공한다.")
+    @DisplayName("addArticle: 아티클 추가에 성공한다.")
     @Test
-    public void addArticle() throws Exception{
-
+    public void addArticle() throws Exception {
         // given
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
         final AddArticleRequest userRequest = new AddArticleRequest(title, content);
 
-        // 객체 JSON으로 직렬화
         final String requestBody = objectMapper.writeValueAsString(userRequest);
 
         Principal principal = Mockito.mock(Principal.class);
         Mockito.when(principal.getName()).thenReturn("username");
 
         // when
-        // 설정한 내용을 바탕으로 요청 전송
         ResultActions result = mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .principal(principal)
@@ -106,7 +105,7 @@ class BlogApiControllerTest {
         assertThat(articles.get(0).getContent()).isEqualTo(content);
     }
 
-    @DisplayName("findAllArticles: 블로그 글 목록 조회에 성공한다.")
+    @DisplayName("findAllArticles: 아티클 목록 조회에 성공한다.")
     @Test
     public void findAllArticles() throws Exception {
         // given
@@ -124,7 +123,7 @@ class BlogApiControllerTest {
                 .andExpect(jsonPath("$[0].title").value(savedArticle.getTitle()));
     }
 
-    @DisplayName("findArticle: 블로그 글 조회에 성공한다.")
+    @DisplayName("findArticle: 아티클 단건 조회에 성공한다.")
     @Test
     public void findArticle() throws Exception {
         // given
@@ -141,10 +140,10 @@ class BlogApiControllerTest {
                 .andExpect(jsonPath("$.title").value(savedArticle.getTitle()));
     }
 
-    @DisplayName("deleteArticle: 블로그 글 삭제에 성공한다.")
+
+    @DisplayName("deleteArticle: 아티클 삭제에 성공한다.")
     @Test
     public void deleteArticle() throws Exception {
-
         // given
         final String url = "/api/articles/{id}";
         Article savedArticle = createDefaultArticle();
@@ -156,10 +155,11 @@ class BlogApiControllerTest {
         // then
         List<Article> articles = blogRepository.findAll();
 
-        assertThat(articles.isEmpty());
+        assertThat(articles).isEmpty();
     }
 
-    @DisplayName("updateArticle: 블로그 글 수정에 성공한다.")
+
+    @DisplayName("updateArticle: 아티클 수정에 성공한다.")
     @Test
     public void updateArticle() throws Exception {
         // given
@@ -193,3 +193,6 @@ class BlogApiControllerTest {
                 .build());
     }
 }
+
+
+

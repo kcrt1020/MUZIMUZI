@@ -8,22 +8,27 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
+import static java.util.Collections.emptyMap;
+
 @Getter
 public class JwtFactory {
-    private String subject = "test@email.com";
-    private Date issueAt = new Date();
-    private Date expiration = new Date(new Date().getTime() + Duration.ofDays(14).toMillis());
-    private Map<String, Object> claims = Collections.emptyMap();
 
-    // 빌더 패턴을 사용해 설정이 필요한 데이터만 선택 설정
+    private String subject = "test@email.com";
+
+    private Date issuedAt = new Date();
+
+    private Date expiration = new Date(new Date().getTime() + Duration.ofDays(14).toMillis());
+
+    private Map<String, Object> claims = emptyMap();
+
     @Builder
-    public JwtFactory(String subject, Date issueAt, Date expiration, Map<String, Object> claims) {
+    public JwtFactory(String subject, Date issuedAt, Date expiration,
+                      Map<String, Object> claims) {
         this.subject = subject != null ? subject : this.subject;
-        this.issueAt = issueAt != null ? issueAt : this.issueAt;
+        this.issuedAt = issuedAt != null ? issuedAt : this.issuedAt;
         this.expiration = expiration != null ? expiration : this.expiration;
         this.claims = claims != null ? claims : this.claims;
     }
@@ -37,10 +42,11 @@ public class JwtFactory {
                 .setSubject(subject)
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())
-                .setIssuedAt(issueAt)
+                .setIssuedAt(issuedAt)
                 .setExpiration(expiration)
                 .addClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
     }
 }
+
