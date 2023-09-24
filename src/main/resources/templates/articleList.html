@@ -4,30 +4,22 @@
     <meta charset="UTF-8">
     <title>블로그 글 목록</title>
     <!-- 부트스트랩 css 사용 -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     <!--  부트스트랩 js 사용 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-
-    <style>
-        body{
-            background:#8bc3c5;
-            color:#36697e;
-        }
-
-    </style>
-
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
 </head>
 <body>
-    <div  style="background:#36697e; color: #8bc3c5" >
+    <div class="p-3 mb-3 text-center bg-dark">
         <h5 >HOME   MEMO  </h5>
     </div>
 
     <div class="container">
         <button type="button" id="create-btn"
                 th:onclick="|location.href='@{/new-article}'|"
-                class="btn btn-secondary btn-sm mb-3" style="background:#36697e; color: #8bc3c5">글 등록</button>
-        <div class="row-6" th:each="item : ${articles}">
+                class="btn btn-secondary">글 등록</button>
+        <br>
+        <div class="row" th:each="item : ${articles}">
             <div class="card" style="background:#f7f0c4;" th:onclick="|location.href='@{/articles/{id}(id=${item.id})}'|">
                 <div class="card-body" style="background:#f7f0c4;">
                     <h5 class="card-title" th:text="${item.title}"></h5>
@@ -36,8 +28,9 @@
             </div>
             <br>
         </div>
+        <br><br>
 
-        <button type="button" class="btn btn-secondary" style="background:#36697e; color: #8bc3c5" onclick="location.href='/logout'">로그아웃</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
     </div>
 
     <script src="/js/token.js"></script>
