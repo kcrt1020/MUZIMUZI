@@ -24,8 +24,8 @@
         <div class="row" th:each="item : ${articles}">
             <div class="card" style="background:#f7f0c4;" th:onclick="|location.href='@{/articles/{id}(id=${item.id})}'|">
                 <div class="card-body" style="background:#f7f0c4;">
-                    <h5 class="card-title" th:text="${item.title}"></h5>
-                    <p class="card-text" th:text="${item.content}"></p>
+                    <h5 class="card-title" th:text="${item.content}"></h5>
+                    <p class="card-text" style="text-align: right" th:text="${#temporals.format(item.createdAt, 'YYYY-MM-dd HH:mm')}"></p>
                 </div>
             </div>
             <br>
@@ -42,7 +42,4 @@
             $("#header").load("header.html");
         });
     </script>
-<script>
-    includeHTML();
-</script>
 </body>

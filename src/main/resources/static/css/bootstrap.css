@@ -104,6 +104,7 @@
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
+  /*--bs-body-font-family: var(--bs-font-monospace);*/
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -219,11 +220,37 @@
   }
 }
 
+@font-face {
+  font-family: 'HakgyoansimWoojuR';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HakgyoansimSantteutdotumL';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimSantteutdotumL.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  /*font-family: var(--bs-body-font-family);*/
-  font-family: 'NEXON Lv1 Gothic OTF';
-  font-size: var(--bs-body-font-size);
+  font-family: var(--bs-body-font-family);
+  /*font-family: 'NEXON Lv1 Gothic OTF';*/
+  /*font-family: 'KorailRoundGothicBold';*/
+  /*font-family: 'HealthsetGothicLight';*/
+  /*font-family: 'HakgyoansimWoojuR';*/
+  /*font-family: 'HakgyoansimSantteutdotumL';*/
+  font-family: 'SUIT-Regular';
+  /*font-size: var(--bs-body-font-size);*/
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
