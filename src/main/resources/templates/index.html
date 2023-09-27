@@ -10,33 +10,34 @@
     <script src="https://kit.fontawesome.com/04763e3baa.js" crossorigin="anonymous"></script>
     <style>
         .gradient-custom {
-            background: linear-gradient(to right, rgb(247, 240, 196), rgb(139, 195, 197))
+            background: linear-gradient(to right, rgb(247, 240, 196), rgb(183, 225, 228))
         }
     </style>
 </head>
 <body class="gradient-custom">
-<div class="pb-3 mb-5 text-center bg-dark">
-    <br><h6 class="fw-semibold"> &nbsp</h6>
+<div class="pt-2 pb-1 mb-5 text-center bg-dark">
+    <h6 class="fw-semibold"> &nbsp</h6>
 </div>
 <br><br><br><br><br><br>
     <div class="p-3 mb-3 text-center">
         <table width="300px" align="center">
             <tr height="150px">
                 <td onclick="location.href='/'"><h2><i class="fa-solid fa-house fa-2xl"></i></h2>
-                    <p>HOME</p></td>
-                <td onclick="location.href='/articles'"><h2><i class="fa-solid fa-calendar-days fa-2xl"></i></h2>
-                    <p>MEMO</p></td>
+                    <p class="fw-semibold">HOME</p></td>
+                <td><h2><i class="fa-solid fa-calendar-days fa-2xl"></i></h2>
+                    <p class="fw-semibold">CALENDAR</p></td>
             </tr>
             <tr>
-                <td><h2><i class="fa-solid fa-book fa-2xl"></i></h2>
-                    <p>HOME</p></td>
                 <td><h2><i class="fa-solid fa-list fa-2xl"></i></h2>
-                    <p>MEMO</p></td>
+                    <p class="fw-semibold">TO DO LIST</p></td>
+                <td onclick="location.href='/articles'"><h2><i class="fa-solid fa-book fa-2xl"></i></h2>
+                   <p class="fw-semibold">MEMO</p></td>
             </tr>
         </table>
+        <br><br><br>
         <a href="/oauth2/authorization/google">
-            <img src="/img/google.png">
-            <br><p>로그인</p>
+            <img style="width:40px; border-radius:100%" src="/img/google-logo.png">
+            <br><p>LOG IN</p>
         </a>
     </div>
 </body>
