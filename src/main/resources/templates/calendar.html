@@ -11,7 +11,7 @@
   <script src="https://kit.fontawesome.com/04763e3baa.js" crossorigin="anonymous"></script>
   <style>
     td {
-      height: 120px;
+      height: 100px;
     }
   </style>
 </head>
@@ -19,7 +19,7 @@
 <div th:include="header :: header-content"></div>
 
 <div class="container">
-  <div class="table-container">
+  <div class="table-container align-items-center">
     <table class="table">
       <tr>
         <th>일</th>
@@ -31,7 +31,7 @@
         <th>토</th>
       </tr>
     </table>
-</div>
+
 <script>
   // 오늘의 날짜를 가져옵니다.
   const today = new Date();
@@ -66,6 +66,7 @@
     }
   }
 </script>
+  </div>
 </div>
 <div th:include="footer :: footer-content"></div>
 <script src="/js/token.js"></script>
