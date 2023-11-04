@@ -16,12 +16,7 @@
   </style>
 </head>
 <body>
-<div class="pt-2 pb-1 mb-5 text-center bg-dark">
-  <h6><a class="a-menu" href="/"><i class="fa-solid fa-house"></i> HOME</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a class="a-menu" href="/calendar"><i class="fa-solid fa-calendar-days"></i> CALENDAR</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a class="a-menu" href="/"><i class="fa-solid fa-list"></i> TO DO LIST</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a class="a-menu" href="/articles"><i class="fa-solid fa-book"></i> MEMO</a></h6>
-</div>
+<div th:include="header :: header-content"></div>
 
 <div class="container">
   <div class="table-container">
@@ -72,5 +67,6 @@
   }
 </script>
 </div>
+<div th:include="footer :: footer-content"></div>
 <script src="/js/token.js"></script>
 </body>

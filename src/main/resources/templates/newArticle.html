@@ -11,12 +11,7 @@
   <script src="https://kit.fontawesome.com/04763e3baa.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="pt-2 pb-1 mb-5 text-center bg-dark">
-  <h6><a class="a-menu" href="/"><i class="fa-solid fa-house"></i> HOME</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a class="a-menu" href="/calendar"><i class="fa-solid fa-calendar-days"></i> CALENDAR</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a class="a-menu" href="/"><i class="fa-solid fa-list"></i> TO DO LIST</a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a class="a-menu" href="/articles"><i class="fa-solid fa-book"></i> MEMO</a></h6>
-</div>
+<div th:include="header :: header-content"></div>
 
 <div class="container mt-5">
   <div class="row">
@@ -38,4 +33,6 @@
 </div>
 
 <script src="/js/article.js"></script>
+
+<div th:include="footer :: footer-content"></div>
 </body>
