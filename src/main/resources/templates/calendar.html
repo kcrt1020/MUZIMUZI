@@ -11,7 +11,7 @@
   <script src="https://kit.fontawesome.com/04763e3baa.js" crossorigin="anonymous"></script>
   <style>
     td {
-      height: 100px;
+      height: 10px;
     }
   </style>
 </head>
@@ -19,53 +19,81 @@
 <div th:include="header :: header-content"></div>
 
 <div class="container">
+
+  <div>
+    <button id="prevMonth">이전 달</button>
+    <span th:text="${currentMonth}"></span>
+    <button id="nextMonth">다음 달</button>
+  </div>
+
   <div class="table-container align-items-center">
     <table class="table">
-      <tr>
-        <th>일</th>
-        <th>월</th>
-        <th>화</th>
-        <th>수</th>
-        <th>목</th>
-        <th>금</th>
-        <th>토</th>
+      <thead>
+        <tr>
+          <th>일</th>
+          <th>월</th>
+          <th>화</th>
+          <th>수</th>
+          <th>목</th>
+          <th>금</th>
+          <th>토</th>
+        </tr>
+      </thead>
+      <tr th:each="week : ${calendar}">
+        <td th:each="day : ${week}" th:text="${day}"></td>
       </tr>
+      </tbody>
     </table>
 
-<script>
-  // 오늘의 날짜를 가져옵니다.
-  const today = new Date();
+<!--<script>-->
+<!--  // 오늘의 날짜를 가져옵니다.-->
+<!--  const today = new Date();-->
 
-  // 달력을 출력할 테이블을 선택합니다.
-  const table = document.querySelector('table');
+<!--  // 달력을 출력할 테이블을 선택합니다.-->
+<!--  const table = document.querySelector('table');-->
 
-  // 현재 월의 첫 번째 날을 설정합니다.
-  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+<!--  // 현재 월의 첫 번째 날을 설정합니다.-->
+<!--  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);-->
 
-  // 첫 번째 날의 요일을 가져옵니다 (0: 일요일, 1: 월요일, ..., 6: 토요일).
-  const dayOfWeek = firstDay.getDay();
+<!--  // 첫 번째 날의 요일을 가져옵니다 (0: 일요일, 1: 월요일, ..., 6: 토요일).-->
+<!--  const dayOfWeek = firstDay.getDay();-->
 
-  // 현재 월의 마지막 날을 가져옵니다.
-  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+<!--  // 현재 월의 마지막 날을 가져옵니다.-->
+<!--  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);-->
 
-  let date = 1;
+<!--  let date = 1;-->
 
-  for (let i = 0; i < 6; i++) {
-    const row = table.insertRow();
-    for (let j = 0; j < 7; j++) {
-      const cell = row.insertCell();
-      if (i === 0 && j < dayOfWeek) {
-        // 첫 번째 주의 시작 전에는 빈 셀을 출력합니다.
-        continue;
-      } else if (date > lastDay.getDate()) {
-        // 마지막 날을 지나면 빈 셀을 출력합니다.
-        continue;
-      }
-      cell.innerHTML = date;
-      date++;
-    }
-  }
-</script>
+<!--  for (let i = 0; i < 6; i++) {-->
+<!--    const row = table.insertRow();-->
+<!--    for (let j = 0; j < 7; j++) {-->
+<!--      const cell = row.insertCell();-->
+<!--      if (i === 0 && j < dayOfWeek) {-->
+<!--        // 첫 번째 주의 시작 전에는 빈 셀을 출력합니다.-->
+<!--        continue;-->
+<!--      } else if (date > lastDay.getDate()) {-->
+<!--        // 마지막 날을 지나면 빈 셀을 출력합니다.-->
+<!--        continue;-->
+<!--      }-->
+<!--      cell.innerHTML = date;-->
+<!--      date++;-->
+<!--    }-->
+<!--  }-->
+<!--</script>-->
+    <script th:inline="javascript">
+      var prevMonthUrl = /*[[@{/calendar/{prevMonth}(prevMonth=${prevMonth})}]]*/ '';
+      var nextMonthUrl = /*[[@{/calendar/{nextMonth}(nextMonth=${nextMonth})}]]*/ '';
+    </script>
+
+  <script>
+    document.getElementById("prevMonth").addEventListener("click", function() {
+      window.location.href = prevMonthUrl;
+    });
+
+    document.getElementById("nextMonth").addEventListener("click", function() {
+      window.location.href = nextMonthUrl;
+    });
+  </script>
+
   </div>
 </div>
 <div th:include="footer :: footer-content"></div>
