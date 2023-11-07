@@ -1,9 +1,13 @@
 package com.example.muzimuzi.controller;
 
+import com.example.muzimuzi.domain.Calendar;
+import com.example.muzimuzi.dto.CalendarViewResponse;
+import com.example.muzimuzi.service.CalendarService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -13,6 +17,12 @@ import java.util.List;
 
 @Controller
 public class CalendarViewController {
+
+    private final CalendarService calendarService;
+
+    public CalendarViewController(CalendarService calendarService) {
+        this.calendarService = calendarService;
+    }
 
     @GetMapping("/calendar")
     public String getCalendar(Model model) {
@@ -121,5 +131,17 @@ public class CalendarViewController {
         model.addAttribute("nextMonth", nextMonth.format(DateTimeFormatter.ofPattern("yyyy-MM")));
 
         return "calendar";
+    }
+
+    @GetMapping("/new-calendar")
+    public String newCalendar(@RequestParam(required = false) Long id, Model model) {
+        if (id == null) {
+            model.addAttribute("calendar", new CalendarViewResponse());
+        } else {
+            Calendar calendar = calendarService.findById(id);
+            model.addAttribute("calendar", new CalendarViewResponse(calendar));
+        }
+
+        return "newCalendar";
     }
 }

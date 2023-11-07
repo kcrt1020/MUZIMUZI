@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>MUZIMUZI</title>
+  <!-- 부트스트랩 css 사용 -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <!--  부트스트랩 js 사용 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+  <script src="https://kit.fontawesome.com/04763e3baa.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <calendar>
+        <input type="hidden" id="article-id" th:value="${calendar.id}">
+
+        <header class="mb-4">
+          <input type="text" class="form-control" placeholder="제목" id="title" th:value="${calendar.title}">
+        </header>
+        <section class="mb-5">
+          <textarea class="form-control h-25" rows="10" placeholder="내용" id="content" th:text="${calendar.content}"></textarea>
+        </section>
+        <button th:if="${calendar.id} != null" type="button" id="modify-btn" class="btn btn-secondary">수정</button>
+        <button th:if="${calendar.id} == null" type="button" id="create-btn" class="btn btn-secondary">등록</button>
+      </calendar>
+    </div>
+  </div>
+</div>
+
+<script src="/js/article.js"></script>
+
+<div th:include="footer :: footer-content"></div>
+</body>

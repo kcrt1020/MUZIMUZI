@@ -28,17 +28,19 @@
     <table class="table">
       <thead>
         <tr>
-          <th>일</th>
+          <th style="color: indianred">일</th>
           <th>월</th>
           <th>화</th>
           <th>수</th>
           <th>목</th>
           <th>금</th>
-          <th>토</th>
+          <th style="color: #0a53be">토</th>
         </tr>
       </thead>
       <tr th:each="week : ${calendar}">
-        <td th:each="day : ${week}" th:text="${day}"></td>
+        <td style="text-align: left" th:each="day : ${week}" th:onclick="'window.open(\'new-calendar\', \'_blank\', \'width=800,height=600\'); return false;'">
+          <a th:if="${day != null}" th:utext="${day + ' <br>'}"></a>
+        </td>
       </tr>
       </tbody>
     </table>
