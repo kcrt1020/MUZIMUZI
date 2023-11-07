@@ -19,13 +19,11 @@
 <div th:include="header :: header-content"></div>
 
 <div class="container">
-
-  <div>
-    <button id="prevMonth">이전 달</button>
+  <div class="container text-center pb-2 fw-bold">
+    <button class="btn btn-sm btn-secondary" id="prevMonth">◀</button>
     <span th:text="${currentMonth}"></span>
-    <button id="nextMonth">다음 달</button>
+    <button class="btn btn-sm btn-secondary" id="nextMonth">▶</button>
   </div>
-
   <div class="table-container align-items-center">
     <table class="table">
       <thead>
