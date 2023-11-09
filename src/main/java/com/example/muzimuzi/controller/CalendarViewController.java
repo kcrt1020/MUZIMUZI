@@ -84,7 +84,7 @@ public class CalendarViewController {
         LocalDate selectedDate = LocalDate.parse(selectedMonth + "-01");
         int year = selectedDate.getYear();
         int month = selectedDate.getMonthValue();
-        String currentMonth = selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        String currentMonth = selectedDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월"));
 
         // 이전 달과 다음 달 계산
         LocalDate prevMonth = selectedDate.minusMonths(1);
