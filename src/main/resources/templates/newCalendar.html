@@ -25,7 +25,7 @@
           <textarea class="form-control h-25" rows="10" placeholder="내용" id="content" th:text="${calendar.content}"></textarea>
         </section>
         <button th:if="${calendar.id} != null" type="button" id="modify-btn" class="btn btn-secondary">수정</button>
-        <button th:if="${calendar.id} == null" type="button" id="create-btn" class="btn btn-secondary">등록</button>
+        <button th:if="${calendar.id} == null" type="button" id="create-btn" class="btn btn-secondary">등록 </button>
       </calendar>
     </div>
   </div>
