@@ -7960,6 +7960,23 @@ textarea.form-control-lg {
   align-self: stretch !important;
 }
 
+.search-container {
+  max-width: 400px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+}
+
 .order-first {
   order: -1 !important;
 }

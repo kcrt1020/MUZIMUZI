@@ -20,6 +20,22 @@
 </div>
 <br><br><br><br><br><br>
     <div class="p-3 mb-3 text-center">
+
+        <div class="search-container">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i> <input type="text" class="search-input align-content-center" id="searchInput" placeholder="검색어를 입력하세요" onkeydown="if (event.keyCode == 13) search()">
+        </div>
+
+        <script>
+            function search() {
+                // 여기에 검색 동작을 추가하십시오.
+                var searchTerm = document.getElementById("searchInput").value;
+                alert("검색어: " + searchTerm);
+                // 실제로는 검색 동작을 수행하거나 다른 작업을 수행해야 합니다.
+            }
+        </script>
+
+        <br><br>
+
         <table width="300px" align="center">
             <tr height="150px">
                 <td onclick="location.href='/'"><h2><i class="fa-solid fa-house fa-2xl"></i></h2>
@@ -28,7 +44,7 @@
                     <p class="fw-semibold">CALENDAR</p></td>
             </tr>
             <tr>
-                <td><h2><i class="fa-solid fa-list fa-2xl"></i></h2>
+                <td onclick="location.href='/todolist'"><h2><i class="fa-solid fa-list fa-2xl"></i></h2>
                     <p class="fw-semibold">TO DO LIST </p></td>
                 <td onclick="location.href='/articles'"><h2><i class="fa-solid fa-book fa-2xl"></i></h2>
                    <p class="fw-semibold">MEMO</p></td>
@@ -37,7 +53,6 @@
         <br><br><br>
         <a href="/oauth2/authorization/google">
             <img style="width:40px; border-radius:100%" src="/img/google-logo.png">
-            <br><p>LOG IN</p>
         </a>
     </div>
 <div th:include="footer :: footer-content"></div>
