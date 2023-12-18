@@ -24,77 +24,57 @@
     <span th:text="${currentMonth}"></span>
     <button class="btn btn-sm btn-secondary" id="nextMonth">▶</button>
   </div>
-  <div class="table-container align-items-center">
-    <table class="table">
-      <thead>
-        <tr>
-          <th style="color: indianred">일</th>
-          <th>월</th>
-          <th>화</th>
-          <th>수</th>
-          <th>목</th>
-          <th>금</th>
-          <th style="color: #0a53be">토</th>
+  <div style="display: flex; padding: 20px;">
+    <div class="table-container align-items-center" style="flex: 1;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="color: indianred">일</th>
+            <th>월</th>
+            <th>화</th>
+            <th>수</th>
+            <th>목</th>
+            <th>금</th>
+            <th style="color: #0a53be">토</th>
+          </tr>
+        </thead>
+        <tr th:each="week : ${calendar}">
+          <td style="text-align: left" th:each="day : ${week}" th:onclick="">
+            <a th:if="${day != null}" th:utext="${day + ' <br>'}"></a>
+          </td>
         </tr>
-      </thead>
-      <tr th:each="week : ${calendar}">
-        <td style="text-align: left" th:each="day : ${week}" th:onclick="'window.open(\'new-calendar\', \'_blank\', \'width=800,height=600\'); return false;'">
-          <a th:if="${day != null}" th:utext="${day + ' <br>'}"></a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
-<!--<script>-->
-<!--  // 오늘의 날짜를 가져옵니다.-->
-<!--  const today = new Date();-->
+      <script th:inline="javascript">
+        var prevMonthUrl = /*[[@{/calendar/{prevMonth}(prevMonth=${prevMonth})}]]*/ '';
+        var nextMonthUrl = /*[[@{/calendar/{nextMonth}(nextMonth=${nextMonth})}]]*/ '';
+      </script>
 
-<!--  // 달력을 출력할 테이블을 선택합니다.-->
-<!--  const table = document.querySelector('table');-->
+      <script>
+        document.getElementById("prevMonth").addEventListener("click", function() {
+          window.location.href = prevMonthUrl;
+        });
 
-<!--  // 현재 월의 첫 번째 날을 설정합니다.-->
-<!--  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);-->
+        document.getElementById("nextMonth").addEventListener("click", function() {
+          window.location.href = nextMonthUrl;
+        });
+      </script>
+    </div>
 
-<!--  // 첫 번째 날의 요일을 가져옵니다 (0: 일요일, 1: 월요일, ..., 6: 토요일).-->
-<!--  const dayOfWeek = firstDay.getDay();-->
+    <div class="table-container align-items-center" style="flex: 1; padding: 20px;">
+      <input type="hidden" id="article-id">
+      <input type="text" class="form-control" placeholder="제목" id="title">
+      <input type="datetime-local" class="form-control" id="startDate">~
+      <input type="datetime-local" class="form-control" id="endDate">
 
-<!--  // 현재 월의 마지막 날을 가져옵니다.-->
-<!--  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);-->
+      <textarea class="form-control h-25" rows="10" placeholder="내용" id="content"></textarea>
+      <button type="button" id="create-btn" class="btn btn-secondary">등록</button>
 
-<!--  let date = 1;-->
-
-<!--  for (let i = 0; i < 6; i++) {-->
-<!--    const row = table.insertRow();-->
-<!--    for (let j = 0; j < 7; j++) {-->
-<!--      const cell = row.insertCell();-->
-<!--      if (i === 0 && j < dayOfWeek) {-->
-<!--        // 첫 번째 주의 시작 전에는 빈 셀을 출력합니다.-->
-<!--        continue;-->
-<!--      } else if (date > lastDay.getDate()) {-->
-<!--        // 마지막 날을 지나면 빈 셀을 출력합니다.-->
-<!--        continue;-->
-<!--      }-->
-<!--      cell.innerHTML = date;-->
-<!--      date++;-->
-<!--    }-->
-<!--  }-->
-<!--</script>-->
-    <script th:inline="javascript">
-      var prevMonthUrl = /*[[@{/calendar/{prevMonth}(prevMonth=${prevMonth})}]]*/ '';
-      var nextMonthUrl = /*[[@{/calendar/{nextMonth}(nextMonth=${nextMonth})}]]*/ '';
-    </script>
-
-  <script>
-    document.getElementById("prevMonth").addEventListener("click", function() {
-      window.location.href = prevMonthUrl;
-    });
-
-    document.getElementById("nextMonth").addEventListener("click", function() {
-      window.location.href = nextMonthUrl;
-    });
-  </script>
-
+    </div>
   </div>
+
+
 </div>
 <div th:include="footer :: footer-content"></div>
 <script src="/js/token.js"></script>
